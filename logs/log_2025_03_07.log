@@ -1,0 +1,12 @@
+2025-03-07 15:37:36 - data_ingestion - DEBUG - 
+
+###############################
+
+2025-03-07 15:37:36 - data_ingestion - DEBUG - Creating Dask Cluster
+2025-03-07 15:37:37 - data_ingestion - DEBUG - Dask Cluster created
+2025-03-07 15:37:37 - data_ingestion - DEBUG - Loading Dask Dataframe
+2025-03-07 15:37:38 - data_ingestion - DEBUG - Loading Dask Dataframe
+2025-03-07 15:37:38 - data_ingestion - INFO - Serializing Dataframe to: diabetic_data with saving option: .csv
+2025-03-07 15:37:39 - data_ingestion - INFO - Serialization of dataframe to: diabetic_data with saving option: .csv successful
+2025-03-07 15:37:39 - data_ingestion - DEBUG - Closing Dask Cluster
+2025-03-07 15:37:39 - data_ingestion - DEBUG - Dask Cluster closed
