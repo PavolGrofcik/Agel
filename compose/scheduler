@@ -8,9 +8,10 @@ RUN apt update -y && \
    apt install python3.10 -y &&\
    apt install python3-pip -y && \
    apt install vim -y && \
-   pip3 install -r ./requirements.txt
+   pip3 install -r ./requirements.txt && \
+   bash init.sh &&\
 
-# FROM airflow_base:1.2
-#
-# ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
-CMD ["airflow", "scheduler"]
+
+ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
+
+CMD ["bash", "./compose/startup.sh"]
