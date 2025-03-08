@@ -5,6 +5,7 @@ echo "Initialazation starting..."
 echo "##############################"
 
 pip3 install pyarrow 
+pip3 install psycopg2
 python3 -m pip install "dask[distributed]"
 
 #airflow db init

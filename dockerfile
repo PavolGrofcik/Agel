@@ -12,5 +12,5 @@ RUN apt update -y && \
 
 # FROM airflow_base:1.2
 #
-# ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
-CMD ["airflow", "scheduler"]
+ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
+CMD ["airflow", "standalone"]

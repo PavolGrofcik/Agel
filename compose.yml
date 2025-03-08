@@ -54,7 +54,8 @@ services:
   airflow_scheduler:
     restart: always
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     build:
       context: compose
       dockerfile: ./scheduler
