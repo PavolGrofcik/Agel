@@ -6,7 +6,6 @@ echo "##############################"
 
 pip3 install pyarrow 
 python3 -m pip install "dask[distributed]"
-apt update -y
 
 #airflow db init
 #airflow users create --username admin --password admin --firstname test  --lastname test --role Admin --email test@test.org
