@@ -1,27 +1,17 @@
-FROM ubuntu:22.04 AS base
-
-
-WORKDIR /Agel
-COPY / .
-
-RUN apt update -y && \
-    apt install python3.10 -y &&\
-    apt install python3-pip -y && \
-    pip3 install -r ./requirements.txt && \
-    pip3 install pyarrow && \
-    python3 -m pip install "dask[distributed]" && \
-    airflow db init && \
-    airflow users create --username admin --password admin --firstname test  --lastname test --role Admin --email test@test.org && \
-    bash init.sh
-
-ENTRYPOINT "startup.sh run"
-
-##Use previous image
-#FROM app:1.6
+# FROM ubuntu:22.04 AS base
 #
-##Config airflow
-#RUN airflow db init && \
-#    airflow users create --username admin --password admin --firstname test  --lastname test --role Admin #--email test@test.org && \
+#
+# WORKDIR /Agel
+# COPY / .
+#
+# RUN apt update -y && \
+#    apt install python3.10 -y &&\
+#    apt install python3-pip -y && \
+#    apt install vim -y && \
 #    bash init.sh
-#
-##Run airflow in background when container starts to run
+
+
+FROM airflow_base:1.2
+
+ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
+ENTRYPOINT ["airflow", "standalone"]

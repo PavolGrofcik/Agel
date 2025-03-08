@@ -37,7 +37,7 @@ dag=dag)
 #Test task
 task2 = BashOperator(
     task_id="create_test_file",
-    bash_command="touch bash_test_file.txt",
+    bash_command="touch $AGEL_DIR/bash_test_file.txt",
     retries=0,
     dag=dag
 )
