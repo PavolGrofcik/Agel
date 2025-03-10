@@ -4,8 +4,12 @@ echo "##############################"
 echo "Initialization started!"
 echo "##############################"
 
-export AGEL_DIR=$HOME/Agel
-export AIRFLOW_DIR=/root/airflow
+#pip3 install apache-airflow-providers-postgres
+
+#airflow db init
+#airflow users create --username admin --password admin --firstname test  --lastname test --role Admin --email test@test.org
+
+airflow webserver
 
 echo "##############################"
 echo "Initialization successful!"

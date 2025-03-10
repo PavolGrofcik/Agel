@@ -2,12 +2,12 @@ services:
 
   postgres:
     image: postgres
-    restart: always
+    restart: on-failure
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
     volumes:
-      - /home/Plocha/Agel/compose/postgresql:/var/lib/postgresql
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -21,25 +21,27 @@ services:
       retries: 30
 
 
-  postgres-start-scripts:
-    container_name: postgres_start_script
-    image: timescale/timescaledb-ha:pg15
-    depends_on:
-      postgres:
-        condition: service_healthy
-    # Some seeding
-    command:
-      - 'bash'
-      - '-c'
-      - |
-        PGPASSWORD=postgres psql -h postgres -p 5432 -U postgres postgres  <<SQL
-        DROP DATABASE airflow_db;
-        CREATE DATABASE airflow_db;
-        CREATE USER airflow WITH PASSWORD 'airflow';
-        GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow;
-        GRANT ALL ON SCHEMA public TO airflow;
-          ALTER USER airflow SET search_path = public;
-        SQL
+#  postgres-start-scripts:
+#    container_name: postgres_start_script
+#    image: timescale/timescaledb-ha:pg15
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    # Some seeding
+#    command:
+#      - 'bash'
+#      - '-c'
+#      - |
+#        PGPASSWORD=postgres psql -h postgres -p 5432 -U postgres postgres  <<SQL
+#        DROP DATABASE airflow_db;
+#        DROP OWNED BY airflow;
+#        DROP USER airflow;
+#        CREATE DATABASE airflow_db;
+#        CREATE USER airflow WITH PASSWORD 'airflow';
+#        GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow;
+#        GRANT ALL ON SCHEMA public TO airflow;
+#          ALTER USER airflow SET search_path = public;
+#        SQL
 
   pgadmin:
     image: 'docker.io/dpage/pgadmin4:latest'
@@ -50,24 +52,41 @@ services:
       - "9999:80"
     depends_on:
       - postgres
-
-  airflow_scheduler:
-    restart: always
-    depends_on:
-      postgres:
-        condition: service_healthy
-    build:
-      context: compose
-      dockerfile: ./scheduler
-    ports:
-      - "8793:8793"
-
+#    command:
+#      - 'bash'
+#      - '-c'
+#      - |
+#        PGPASSWORD=postgres psql -h postgres -p 5432 -U postgres postgres  <<SQL
+#        DROP DATABASE airflow_db;
+#        DROP OWNED BY airflow;
+#        DROP USER airflow;
+#        CREATE DATABASE airflow_db;
+#        CREATE USER airflow WITH PASSWORD 'airflow';
+#        GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow;
+#        GRANT ALL ON SCHEMA public TO airflow;
+#          ALTER USER airflow SET search_path = public;
+#        SQL
+        
   airflow_web:
     restart: always
     depends_on:
-      - airflow_scheduler
+      - postgres
     build:
       context: compose
       dockerfile: ./webserver
     ports:
       - "8000:8080"
+
+  airflow_scheduler:
+    restart: always
+    build:
+      context: compose
+      dockerfile: ./scheduler
+    ports:
+      - "8793:8793"
+    environment:
+      - AIRFLOW__CORE__LOAD_EXAMPLES=false
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/airflow_db
+    depends_on:
+      postgres:
+        condition: service_healthy
