@@ -51,10 +51,10 @@ You can launch it in order to run the whole pipeline for Agel Assignment.
 ## b) Docker Compose
 ********************************************
 If you would like to run all services in docker containers, run following commands:  
-Make sure you are in /Agel directory.
-``docker build -t airflow_base:1.2 .``
-``docker compose build --parallel``  
-``docker compose run``
+Make sure you are in /Agel directory.  
+``docker build -t airflow_base:1.2 .``  
+``docker compose build --parallel``   
+``docker compose run``  
 
 Now, the services are continuously starting, and you can type to your web browser a URL for Airflow webserver,
 which by default is in compose.yml file configured from port **8080** to **8000**.
