@@ -3,11 +3,21 @@
 ########################################################
 import logging
 import datetime as dt
+from airflow.models import Variable
+import os
+########################################################
+# GLOBAL VARIABLES
+########################################################
+AGEL_DIR = Variable.get("AGEL_DIR")
+AGEL_DIR = f"~/{AGEL_DIR}"
 
 ########################################################
 # GLOBAL VARIABLES
 ########################################################
-AGEL_LOG_DIR = "/home/pavol/Plocha/Agel/logs"
+AGEL_LOG_DIR = f"{AGEL_DIR}/logs"
+os.chdir(os.path.expanduser(f'{AGEL_LOG_DIR}'))
+
+AGEL_LOG_DIR = os.getcwd()
 
 LOGGER_NAME = "log"
 LOGGER_DATE_FORMAT = "%Y_%m_%d"
