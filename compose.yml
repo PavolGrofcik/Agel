@@ -51,6 +51,10 @@ services:
       - "9999:80"
     depends_on:
       - postgres
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#   README! UNCOMMENT command below unless LAUNCHING FIRST TIME! It initialized DB for Airflow
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 #    command:
 #      - 'bash'
 #      - '-c'
