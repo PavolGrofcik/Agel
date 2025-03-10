@@ -65,6 +65,36 @@ class DaskDataLoader:
             self.cluster = None
         self.logger.info("Dask Cluster closed")
 
+    def downloadData(self, url):
+        self.logger.info(f"Data is to be downloaded from url: {url}")
+
+        try:
+            os.chdir(os.path.expanduser(AGEL_DATA_DIR))
+
+            logger.info(f"Deleting old data files in dir: {AGEL_DATA_DIR}")
+            os.system("rm -rf ./*")
+
+            logger.info(f"Downloading dataset: {AGEL_DATA_DIR}")
+            zip_file = requests.get(url)
+
+            #Write downloaded data
+            with open('data.zip', 'wb') as f:
+                f.write(zip_file.content)
+
+            #Unzip data
+            os.system("unzip data.zip")
+            logger.info(f"Dataset successfully downloaded and unzipped!")
+
+            #Change back to default dir
+            os.chdir(os.path.expanduser(AGEL_SCRIPT_DIR))
+
+        except Exception as e:
+            self.logger.error(f"Exception while downloading dataset from url: {url}!")
+            self.logger.error(e)
+            raise
+
+        self.logger.info("Downloading Data successful")
+
 
     def loadDaskDataframe(self, filepath=DATA_FILEPATH, blocksize=5e6, cols=None, **kwargs):
         self.logger.info("Loading Dask Dataframe")
@@ -80,8 +110,8 @@ class DaskDataLoader:
                     ddf = dd.read_csv(filepath, header=0, blocksize=blocksize,  # 5MB chunks
                                      dtype={'A1Cresult': 'object', 'diag_1': 'object', 'max_glu_serum': 'object'})
                 else:
-                    ddf = dd.read_csv(filepath, header=0, blocksize=blocksize, names=cols,# 5MB chunks
-                                     dtype={'A1Cresult': 'object', 'diag_1': 'object', 'max_glu_serum': 'object'})
+                    ddf = dd.read_csv(filepath, header=0, blocksize=blocksize, names=cols)# 5MB chunks
+                                     #dtype={'A1Cresult': 'object', 'diag_1': 'object', 'max_glu_serum': 'object'})
                 pdf =  ddf.compute()
                 return pdf
 
@@ -186,18 +216,24 @@ class DaskDataLoader:
             self.logger.info("Dataframe mapping successfully finished!")
             return df
 
-    def serializeDataframe(self, df, name, type=".csv"):
-        self.logger.info(f"Serializing Dataframe to: {name} with saving option: {type}")
+    def serializeDataframe(self, df, destination_path="/preprocessed", name="diabetes_data", type=".csv"):
+        self.logger.info(f"Serializing dataframe to: {destination_path}/{name} with saving option: {type}")
 
         try:
             date_today = dt.date.today().strftime("%Y_%m_%d")
+            self.logger.info(f"Initializing destination directory: {destination_path}")
+
+            if not os.path.exists(destination_path):
+                os.makedirs(destination_path)
+                self.logger.info(f"Destination dir: {destination_path} not existing! Will be created")
+                self.logger.info(f"Destination dir: {destination_path} creation sucessfull!")
 
             if type == ".csv":
-                df.to_csv(f"{name}_{date_today}.csv", index=False)
+                df.to_csv(f"{destination_path}/{name}_{date_today}.csv", index=False)
             elif type == ".parquet":
-                df.to_parquet(f"{name}_{date_today}.parquet")
+                df.to_parquet(f"{destination_path}/{name}_{date_today}.parquet")
             elif type == "pickle":
-                df.to_pickle(f"{name}_{date_today}.pickle")
+                df.to_pickle(f"{destination_path}/{name}_{date_today}.pickle")
             else:
                 raise KeyError('Invalid type for serialization of the Dataframe')
         except Exception as e:
@@ -205,6 +241,8 @@ class DaskDataLoader:
             raise
         else:
             self.logger.info(f"Serialization of dataframe to: {name} with saving option: {type} successful")
+
+
 
 
 ########################################################
@@ -221,19 +259,6 @@ if __name__ == "__main__":
     #############################
     # Change path for Python script
     #############################
-    os.chdir(os.path.expanduser(AGEL_DATA_DIR))
-    logger.info(f"Deleting old data files in dir: {AGEL_DATA_DIR}")
-    os.system("rm ./*")
-
-    logger.info(f"Downloading dataset: {AGEL_DATA_DIR}")
-    zip_file = requests.get(AGEL_DATASET_URL)
-    # To save to an absolute path.
-    with open('data.zip', 'wb') as f:
-        f.write(zip_file.content)
-
-    os.system("unzip data.zip")
-    logger.info(f"Dataset successfully downloaded and unzipped!")
-
     os.chdir(os.path.expanduser(AGEL_SCRIPT_DIR))
 
 
@@ -242,6 +267,11 @@ if __name__ == "__main__":
     #############################
     Dataloader = DaskDataLoader(logger, n_workers=2, n_threads=1, memory_limit="2GB")
     Dataloader.createDaskCluster()
+
+    #############################
+    #Download data and prepare it
+    #############################
+    Dataloader.downloadData(url=AGEL_DATASET_URL)
 
     #############################
     #Loading Dask Dataframes
@@ -258,7 +288,7 @@ if __name__ == "__main__":
     #############################
     #Serialize diabetes dataframe
     #############################
-    Dataloader.serializeDataframe(df_diabetes, "diabetic_data", type=".csv")
+    Dataloader.serializeDataframe(df_diabetes, "diabetes_data", type=".csv")
 
     #############################
     #Shutdown the Cluster
