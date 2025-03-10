@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import datetime as dt
 import dask
+import requests
 
 import dask.dataframe as dd
 from dask.distributed import LocalCluster,client
@@ -15,6 +16,9 @@ from airflow.models import Variable
 ########################################################
 AGEL_DIR = Variable.get("AGEL_DIR")
 AGEL_DIR = f"~/{AGEL_DIR}"
+
+AGEL_DATASET_URL = Variable.get("DATASET_URL")
+
 
 AGEL_HOME_DIR = f"{AGEL_DIR}"
 AGEL_DATA_DIR = f"{AGEL_DIR}/data"
@@ -217,7 +221,21 @@ if __name__ == "__main__":
     #############################
     # Change path for Python script
     #############################
+    os.chdir(os.path.expanduser(AGEL_DATA_DIR))
+    logger.info(f"Deleting old data files in dir: {AGEL_DATA_DIR}")
+    os.system("rm ./*")
+
+    logger.info(f"Downloading dataset: {AGEL_DATA_DIR}")
+    zip_file = requests.get(AGEL_DATASET_URL)
+    # To save to an absolute path.
+    with open('data.zip', 'wb') as f:
+        f.write(zip_file.content)
+
+    os.system("unzip data.zip")
+    logger.info(f"Dataset successfully downloaded and unzipped!")
+
     os.chdir(os.path.expanduser(AGEL_SCRIPT_DIR))
+
 
     #############################
     #Dask Cluster loader INIT

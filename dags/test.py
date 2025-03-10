@@ -20,29 +20,26 @@ def helloWorld():
 # DAG Definition
 #################################################
 dag =  DAG(dag_id="hello_world_dag",
-         start_date=datetime.now(),
+         start_date=None,
          schedule=None,
+         is_paused_upon_creation=False,
          max_active_tasks=1,
          catchup=False,
-         is_paused_upon_creation=False
-        )
+         tags=["TEST DAG EXAMPLE"])
 
 #Test task
 task1 = PythonOperator(
     task_id="hello_world",
     python_callable=helloWorld,
-    retries=0,
 dag=dag)
 
 #Test task
 task2 = BashOperator(
     task_id="create_test_file",
-    bash_command="touch $AGEL_DIR/bash_test_file.txt",
-    retries=0,
+    bash_command="touch /home/pavol/bash_test_file.txt",
     dag=dag
 )
 
-#######################
 task1 >> task2
 
 
