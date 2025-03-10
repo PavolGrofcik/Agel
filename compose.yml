@@ -65,7 +65,8 @@ services:
 #        GRANT ALL ON SCHEMA public TO airflow;
 #          ALTER USER airflow SET search_path = public;
 #        SQL
-        
+
+
   airflow_web:
     restart: always
     depends_on:
@@ -87,5 +88,4 @@ services:
       - AIRFLOW__CORE__LOAD_EXAMPLES=false
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/airflow_db
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres

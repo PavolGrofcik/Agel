@@ -288,7 +288,7 @@ if __name__ == "__main__":
     #############################
     #Serialize diabetes dataframe
     #############################
-    Dataloader.serializeDataframe(df_diabetes, "diabetes_data", type=".csv")
+    Dataloader.serializeDataframe(df_diabetes, destination_path="data_ingested", name="data_ingested", type=".csv")
 
     #############################
     #Shutdown the Cluster

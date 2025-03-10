@@ -7,13 +7,21 @@
 *********************************************
 Navigate to the downloaded `/Agel` directory
 
+First build base image using:
+``docker build -t airflow_base:1.2 .``
+
+After successfull building try to run Postgres database
 To run postgres database backend for airflow run:  
 ```docker compose run -it -p 5432:5432 --name postgres postgres ```
 
-Now open 2 terminals (Ctrl + Alt + T) and type:   
+Now in the opened terminal type:   
 ``EXPORT AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/airflow_db``  
-``airflow scheduler``   
+``airflow scheduler``
+
+Now open the 2nd terminal and type:  
 ``airflow webserver``  
+
+After all this commands airflow should start immediatelly
 
 Airflow webserver by default listens at port **8080**, so open  your web browser and type this URL:  
 ``localhost:8080``

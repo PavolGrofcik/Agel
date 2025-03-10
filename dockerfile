@@ -11,8 +11,3 @@ RUN apt update -y && \
    pip3 install -r ./requirements.txt && \
    pip3 install apache-airflow-providers-postgres
 
-
-# FROM airflow_base:1.2
-#
-#ENV AGEL_DIR=/Agel AIRFLOW_DIR=/root/airflow
-#CMD ["airflow", "standalone"]

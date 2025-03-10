@@ -2,6 +2,7 @@
 # IMPORTS
 ########################################################
 import os
+import numpy as np
 import pandas as pd
 import datetime as dt
 import dask
@@ -24,8 +25,8 @@ AGEL_HOME_DIR = f"{AGEL_DIR}"
 AGEL_DATA_DIR = f"{AGEL_DIR}/data"
 AGEL_SCRIPT_DIR = f"{AGEL_DIR}/scripts"
 
-DATA_FILEPATH = f"{AGEL_SCRIPT_DIR}/diabetes_data/"
-DATA_FILENAME = f"diabetes_data"
+DATA_FILEPATH = f"{AGEL_SCRIPT_DIR}/data_ingested/"
+DATA_FILENAME = f"data_ingested"
 DATA_FORMAT = ".csv"
 
 DATA_TRANSFORMED_FILEPATH = f"data_transformed"
@@ -59,6 +60,18 @@ class DataTransformer:
 
     def transform_dataframe(self, dataframe):
         self.logger.info("Dataframe is to be transformed!")
+
+        self.dataframe['max_glu_serum'] = self.dataframe['max_glu_serum'].astype(str)
+        self.dataframe['max_glu_serum'] = self.dataframe['max_glu_serum'].map(lambda x: str(x).lower())
+        cols_unique = self.dataframe.max_glu_serum.unique().tolist()
+        self.dataframe['max_glu_serum_enc'] = self.dataframe['max_glu_serum'].replace(to_replace=cols_unique, value=np.arange(len(cols_unique)).tolist())
+
+        #do transformation... -> encode columns to_categorical
+        #E.G
+        # column_name = df.column.name
+        #col_uniq = df.column.unique().tolist()
+        #df[f'{column_name}_enc'] = df.column_name.replace(to_replace=col_uniq, value=np.arange().tolist())
+
 
     def serializeDataframe(self, destination_path="/preprocessed", name="diabetes_data", type=".csv"):
         self.logger.info(f"Serializing dataframe to: {destination_path}/{name} with saving option: {type}")
@@ -106,8 +119,14 @@ if __name__ == "__main__":
     #############################
     os.chdir(os.path.expanduser(AGEL_SCRIPT_DIR))
 
+    #############################
+    # DataTransformer init
+    #############################
     DataTransformer = DataTransformer(logger)
     DataTransformer.load_dataframe(data_dir=DATA_FILEPATH, data_name=DATA_FILENAME, type=DATA_FORMAT)
 
+    #############################
+    # Making transformation of the dataset
+    #############################
     DataTransformer.transform_dataframe(dataframe=DataTransformer.dataframe)
     DataTransformer.serializeDataframe(destination_path=DATA_TRANSFORMED_FILEPATH, name=DATA_TRANSFORMED_FILENAME, type=DATA_TRANSFORMED_FORMAT)

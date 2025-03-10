@@ -23,11 +23,11 @@ AGEL_HOME_DIR = f"{AGEL_DIR}"
 AGEL_DATA_DIR = f"{AGEL_DIR}/data"
 AGEL_SCRIPT_DIR = f"{AGEL_DIR}/scripts"
 
-DATA_PROCESSED_NAME = "diabetes_data"
+DATA_PROCESSED_NAME = "data_ingested"
 DATA_PROCESSED_FORMAT = ".csv"
 
-DATA_SAVE_PATH = f"{AGEL_SCRIPT_DIR}/diabetes_data/"
-DATA_SAVE_FINAL_PATH = f"processed_data"
+DATA_SAVE_PATH = f"{AGEL_SCRIPT_DIR}/data_ingested/"
+DATA_SAVE_FINAL_PATH = f"data_final"
 DATA_FINAL_NAME = "data_processed"
 DATA_FINAL_FORMAT = ".parquet"
 
