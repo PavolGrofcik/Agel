@@ -12,13 +12,6 @@
 - a) using your Local Apache Airflow installation
 - b) using Docker Compose to run all services in containers
 
-- a) Firstly, you have installed Apache Airflow locally, then you have to only copy **Agel/dags/*** folder to your Airflow **/dags/** folder
-- a) Secondly, set new variables in Airflow: ``DATASET_URL=https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip``
-and ``AGEL_DIR=/AGEL`` in Airflow Webserver UI
-- a) Reload Airflow webserver to add refresh new DAGs
-- a) Finally, launch **AgelETL** DAG in Apache airflow webserver UI
-- b) Using **docker compose** tool to build and run all required services - see below
-
 *********************************************
 ## a) Using your Local Apache Airflow installation
 *********************************************
