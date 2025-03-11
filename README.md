@@ -7,8 +7,11 @@
 
 *********************************************
 ## Launching the program
-1. Clone this repositary to your PC to your ``$HOME`` directory
+1. Clone this repositary to your PC ``$HOME`` directory
 2. There are 2 options to run the proposed pipeline:
+- a) using your Local Apache Airflow installation
+- b) using Docker Compose to run all services in containers
+
 - a) Firstly, you have installed Apache Airflow locally, then you have to only copy **Agel/dags/*** folder to your Airflow **/dags/** folder
 - a) Secondly, set new variables in Airflow: ``DATASET_URL=https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip``
 and ``AGEL_DIR=/AGEL`` in Airflow Webserver UI
@@ -17,15 +20,30 @@ and ``AGEL_DIR=/AGEL`` in Airflow Webserver UI
 - b) Using **docker compose** tool to build and run all required services - see below
 
 *********************************************
-## a) Setting Postgres DB in Dockerfile for running only DB postgres for Airflow as a backend DB - instead of sqlite
+## a) Using your Local Apache Airflow installation
 *********************************************
-Navigate to the downloaded `/Agel` directory
+Navigate to the cloned `/Agel` repositary
 
-First build base image using:
-``docker build -t airflow_base:1.2 .``
+Now, copy content of `./dags` folder containg DAGs file to your airflow/dags folder using command below.
+Replace path to your local Airflow folder
+``cp ./dags/* /$HOME/airflow/dags``
 
-After successful building of the image, try to run Postgres database in docker container
-To run postgres database backend for airflow run:  
+After successful copy of dags files, you have to create 2 new variables in Airflow Webserver->Variables:
+These variables are used in the pipeline named **AgelETL**  
+``DATASET_URL=https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip``  
+ ``AGEL_DIR=/AGEL`` in Airflow Webserver UI
+
+
+After you have added these variables, you can refresh Airflow webserver UI and launch DAG called **AgelETL**.  
+It should start the pipeline soon, and you should see results of the pipeline flow.   
+Final preprocessed dataset will be located after successful run in **/Agel/scripts/data_final/** with name:
+**data_processed_YYYY-MM-DD.parquet** with automatically added date info of the processing.
+
+It is also expected to run this DAG on a daily frequency, so for each day will be created new **processed_data** aimed for next steps: e.g. feature selection and training AI models...
+
+
+Now, try to run Postgres database in docker container for backend database.
+To run postgres container type to your terminal:  
 ```docker compose run -it -p 5432:5432 --name postgres postgres ```
 
 Now in the opened terminal type, or edit **airflow.cfg** and set variable named **sql_alchemy_conn** with the constant below:
@@ -51,18 +69,23 @@ You can launch it in order to run the whole pipeline for Agel Assignment.
 *********************************************
 ## b) Docker Compose
 ********************************************
+Firstly, make sure you have installed **Docker**  
+
 If you would like to run all services in docker containers, run following commands:  
-Make sure you are in /Agel directory.  
+Also, make sure you are in /Agel directory.  
 ``docker build -t airflow_base:1.2 .``  
 ``docker compose build --parallel``   
 ``docker compose run``  
 
-Now, the services are continuously starting, and you can type to your web browser a URL for Airflow webserver,
-which by default is in compose.yml file configured from port **8080** to **8000**.
+Now, the services should be continuously starting, and you can type to your web browser an URL for the Airflow webserver,
+which by default is in compose.yml file configured from port **8080** to **8000**.  
+To list running services (containers), use command:
+``docker ps ``  
 
-So the URL for web server is located as ``localhost:8000``
-The username and password are the same as above.
-Run ETL DAG pipeline.
+
+So to access Airflow webserver type following address ``localhost:8000`` to your web browser.  
+The username and password for login are `postgres` and `postgres` (for test use case only!)  
+Now you should see DAG pipeline called **AgelETL** and you can launch it manually.
 
 In order to stop the containers, run following command:  
 ``docker compose down``
