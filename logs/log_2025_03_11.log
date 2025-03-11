@@ -1,0 +1,62 @@
+2025-03-11 11:11:31 - data_ingestion - DEBUG - 
+
+###############################
+
+2025-03-11 11:11:31 - data_ingestion - INFO - Creating Dask Cluster
+2025-03-11 11:11:33 - data_ingestion - INFO - Dask Cluster created
+2025-03-11 11:11:33 - data_ingestion - INFO - Data is to be downloaded from url: https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip
+2025-03-11 11:11:33 - data_ingestion - INFO - Deleting old data files in dir: ~/Agel/data
+2025-03-11 11:11:33 - data_ingestion - INFO - Downloading dataset: ~/Agel/data
+2025-03-11 11:11:44 - data_ingestion - INFO - Dataset successfully downloaded and unzipped!
+2025-03-11 11:11:44 - data_ingestion - INFO - Downloading Data successful
+2025-03-11 11:11:44 - data_ingestion - INFO - Loading Dask Dataframe
+2025-03-11 11:11:44 - data_ingestion - INFO - Dask Dataframe is to be loaded
+2025-03-11 11:11:45 - data_ingestion - INFO - Loading Dask Dataframe
+2025-03-11 11:11:45 - data_ingestion - INFO - Dask Dataframe is to be loaded
+2025-03-11 11:11:45 - data_ingestion - INFO - Initializing mapping file
+2025-03-11 11:11:45 - data_ingestion - INFO - Initializing of mapping file successfully finished!
+2025-03-11 11:11:45 - data_ingestion - INFO - Dataframe mapping starting
+2025-03-11 11:11:45 - data_ingestion - INFO - Creating dicts for mapping values
+2025-03-11 11:11:45 - data_ingestion - INFO - Initializing empty dicts for mapping
+2025-03-11 11:11:45 - data_ingestion - INFO - Applying mapping to source dataframe
+2025-03-11 11:11:45 - data_ingestion - INFO - Reordering dataframe columns
+2025-03-11 11:11:45 - data_ingestion - DEBUG - Dataframe columns: ['encounter_id', 'patient_nbr', 'race', 'gender', 'age', 'weight', 'admission_type_id', 'discharge_disposition_id', 'admission_source_id', 'time_in_hospital', 'payer_code', 'medical_specialty', 'num_lab_procedures', 'num_procedures', 'num_medications', 'number_outpatient', 'number_emergency', 'number_inpatient', 'diag_1', 'diag_2', 'diag_3', 'number_diagnoses', 'max_glu_serum', 'A1Cresult', 'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed', 'readmitted', 'admission_type_desc', 'discharge_disposition_desc', 'admission_source_desc']
+2025-03-11 11:11:45 - data_ingestion - DEBUG - Dataframe admissions_id_idx: 6
+2025-03-11 11:11:45 - data_ingestion - DEBUG - Dataframe reordered columns: ['encounter_id', 'patient_nbr', 'race', 'gender', 'age', 'weight', 'admission_type_id', 'admission_type_desc', 'discharge_disposition_id', 'discharge_disposition_desc', 'admission_source_id', 'admission_source_desc', 'time_in_hospital', 'payer_code', 'medical_specialty', 'num_lab_procedures', 'num_procedures', 'num_medications', 'number_outpatient', 'number_emergency', 'number_inpatient', 'diag_1', 'diag_2', 'diag_3', 'number_diagnoses', 'max_glu_serum', 'A1Cresult', 'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed', 'readmitted']
+2025-03-11 11:11:45 - data_ingestion - INFO - Dataframe mapping successfully finished!
+2025-03-11 11:11:45 - data_ingestion - INFO - Serializing dataframe to: data_ingested/data_ingested with saving option: .csv
+2025-03-11 11:11:45 - data_ingestion - INFO - Initializing destination directory: data_ingested
+2025-03-11 11:11:46 - data_ingestion - INFO - Serialization of dataframe to: data_ingested with saving option: .csv successful
+2025-03-11 11:11:46 - data_ingestion - INFO - Closing Dask Cluster
+2025-03-11 11:11:46 - data_ingestion - INFO - Dask Cluster closed
+2025-03-11 11:16:10 - data_ingestion - DEBUG - 
+
+###############################
+
+2025-03-11 11:16:10 - data_ingestion - INFO - Creating Dask Cluster
+2025-03-11 11:16:12 - data_ingestion - INFO - Dask Cluster created
+2025-03-11 11:16:12 - data_ingestion - INFO - Data is to be downloaded from url: https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip
+2025-03-11 11:16:12 - data_ingestion - INFO - Deleting old data files in dir: ~/Agel/data
+2025-03-11 11:16:12 - data_ingestion - INFO - Downloading dataset: ~/Agel/data
+2025-03-11 11:16:23 - data_ingestion - INFO - Dataset successfully downloaded and unzipped!
+2025-03-11 11:16:23 - data_ingestion - INFO - Downloading Data successful
+2025-03-11 11:16:23 - data_ingestion - INFO - Loading Dask Dataframe
+2025-03-11 11:16:23 - data_ingestion - INFO - Dask Dataframe is to be loaded
+2025-03-11 11:16:24 - data_ingestion - INFO - Loading Dask Dataframe
+2025-03-11 11:16:24 - data_ingestion - INFO - Dask Dataframe is to be loaded
+2025-03-11 11:16:24 - data_ingestion - INFO - Initializing mapping file
+2025-03-11 11:16:24 - data_ingestion - INFO - Initializing of mapping file successfully finished!
+2025-03-11 11:16:24 - data_ingestion - INFO - Dataframe mapping starting
+2025-03-11 11:16:24 - data_ingestion - INFO - Creating dicts for mapping values
+2025-03-11 11:16:24 - data_ingestion - INFO - Initializing empty dicts for mapping
+2025-03-11 11:16:24 - data_ingestion - INFO - Applying mapping to source dataframe
+2025-03-11 11:16:24 - data_ingestion - INFO - Reordering dataframe columns
+2025-03-11 11:16:24 - data_ingestion - DEBUG - Dataframe columns: ['encounter_id', 'patient_nbr', 'race', 'gender', 'age', 'weight', 'admission_type_id', 'discharge_disposition_id', 'admission_source_id', 'time_in_hospital', 'payer_code', 'medical_specialty', 'num_lab_procedures', 'num_procedures', 'num_medications', 'number_outpatient', 'number_emergency', 'number_inpatient', 'diag_1', 'diag_2', 'diag_3', 'number_diagnoses', 'max_glu_serum', 'A1Cresult', 'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed', 'readmitted', 'admission_type_desc', 'discharge_disposition_desc', 'admission_source_desc']
+2025-03-11 11:16:24 - data_ingestion - DEBUG - Dataframe admissions_id_idx: 6
+2025-03-11 11:16:24 - data_ingestion - DEBUG - Dataframe reordered columns: ['encounter_id', 'patient_nbr', 'race', 'gender', 'age', 'weight', 'admission_type_id', 'admission_type_desc', 'discharge_disposition_id', 'discharge_disposition_desc', 'admission_source_id', 'admission_source_desc', 'time_in_hospital', 'payer_code', 'medical_specialty', 'num_lab_procedures', 'num_procedures', 'num_medications', 'number_outpatient', 'number_emergency', 'number_inpatient', 'diag_1', 'diag_2', 'diag_3', 'number_diagnoses', 'max_glu_serum', 'A1Cresult', 'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'examide', 'citoglipton', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed', 'readmitted']
+2025-03-11 11:16:24 - data_ingestion - INFO - Dataframe mapping successfully finished!
+2025-03-11 11:16:24 - data_ingestion - INFO - Serializing dataframe to: data_ingested/data_ingested with saving option: .csv
+2025-03-11 11:16:24 - data_ingestion - INFO - Initializing destination directory: data_ingested
+2025-03-11 11:16:25 - data_ingestion - INFO - Serialization of dataframe to: data_ingested with saving option: .csv successful
+2025-03-11 11:16:25 - data_ingestion - INFO - Closing Dask Cluster
+2025-03-11 11:16:25 - data_ingestion - INFO - Dask Cluster closed
