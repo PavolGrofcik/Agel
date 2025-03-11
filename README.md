@@ -1,6 +1,8 @@
 # Agel Assignment 
 
 *********************************************
+Full assignment description located in _/assignment_ folder.
+*********************************************
 ## Design
 ![](/agel_design.png)
 
