@@ -5,14 +5,12 @@ echo "Initialization started!"
 echo "##############################"
 
 
-#airflow db migrate
-#airflow users create --username admin --password admin --firstname test  --lastname test --role Admin --email test@test.org
+mkdir -p $AIRFLOW_HOME/dags $AIRFLOW_HOME/logs/scheduler
+cp ./dags/* $AIRFLOW_HOME/dags/
+#cp ./compose/airflow.cfg $HOME/airflow
 
-mkdir -p /root/airflow/dags /root/airflow/logs/scheduler
-cp ./compose/dags/* /root/airflow/dags/
-cp ./compose/airflow.cfg /root/airflow
-
-python3 /root/airflow/dags/test.py
+#Just run test.py DAG
+python3 $HOME/airflow/dags/agel_etl.py
 
 airflow scheduler
 

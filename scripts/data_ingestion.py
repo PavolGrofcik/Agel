@@ -16,6 +16,7 @@ from airflow.models import Variable
 ########################################################
 AGEL_DIR = Variable.get("AGEL_DIR")
 AGEL_DIR = f"~/{AGEL_DIR}"
+AGEL_DIR  = os.path.expanduser(AGEL_DIR)
 
 AGEL_DATASET_URL = Variable.get("DATASET_URL")
 
@@ -106,6 +107,8 @@ class DaskDataLoader:
         self.logger.info("Dask Dataframe is to be loaded")
         with self.cluster.get_client() as client:
             try:
+                filepath = os.path.expanduser(filepath)
+
                 if cols is None:
                     ddf = dd.read_csv(filepath, header=0, blocksize=blocksize,  # 5MB chunks
                                      dtype={'A1Cresult': 'object', 'diag_1': 'object', 'max_glu_serum': 'object'})

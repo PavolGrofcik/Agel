@@ -9,10 +9,11 @@
 ## Launching the program
 1. Clone this repositary to your PC to your ``$HOME`` directory
 2. There are 2 options to run the proposed pipeline:
-- a) Firstly, you have installed Apache Airflow locally, then you have to only copy **/dags/*** folder to you Airflow **/dags/** folder
+- a) Firstly, you have installed Apache Airflow locally, then you have to only copy **Agel/dags/*** folder to your Airflow **/dags/** folder
 - a) Secondly, set new variables in Airflow: ``DATASET_URL=https://archive.ics.uci.edu/static/public/296/diabetes+130-us+hospitals+for+years+1999-2008.zip``
-and ``AGEL_DIR=/AGEL``
-- a) Finally to launch **AgelETL** DAG in Apache airflow webserver UI
+and ``AGEL_DIR=/AGEL`` in Airflow Webserver UI
+- a) Reload Airflow webserver to add refresh new DAGs
+- a) Finally, launch **AgelETL** DAG in Apache airflow webserver UI
 - b) Using **docker compose** tool to build and run all required services - see below
 
 *********************************************
@@ -23,7 +24,7 @@ Navigate to the downloaded `/Agel` directory
 First build base image using:
 ``docker build -t airflow_base:1.2 .``
 
-After successfull building try to run Postgres database
+After successful building of the image, try to run Postgres database in docker container
 To run postgres database backend for airflow run:  
 ```docker compose run -it -p 5432:5432 --name postgres postgres ```
 
@@ -41,8 +42,8 @@ Airflow webserver by default listens at port **8080**, so open  your web browser
 After opening URL at the webserver address, the login form will appear:  
 Now for username type: **airflow** and for password **airflow**  
 
-After successful login, Airflow UI will show.   
-There are some DAGs, from which there is also a requried DAG called ``AgelETL``.
+After successful login, Airflow UI webserver will show.   
+There are some DAGs, from which there is also the required DAG called ``AgelETL``.
 You can launch it in order to run the whole pipeline for Agel Assignment.
 
 
