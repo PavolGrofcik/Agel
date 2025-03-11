@@ -51,7 +51,7 @@ Also, make sure you are in /Agel directory.
 Now, the services should be continuously starting, and you can type to your web browser an URL for the Airflow webserver,
 which by default is in compose.yml file configured from port **8080** to **8000**.  
 To list running services (containers), use command:
-``docker ps ``  
+``docker ps ``   
 
 
 So to access Airflow webserver type following address ``localhost:8000`` to your web browser.  
