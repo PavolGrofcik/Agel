@@ -58,6 +58,15 @@ So to access Airflow webserver type following address ``localhost:8000`` to your
 The username and password for login are `postgres` and `postgres` (for test use case only!)  
 Now you should see DAG pipeline called **AgelETL** and you can launch it manually.
 
+In this case, the processed data will be located in agel-airflow_scheduler container, because DAGs
+will be executed in this container.   
+
+In order to access the processed data, run following command:
+``docker exec -it agel-airflow_scheduler bash``  
+It will login you to the airflow scheduler container and then you can navigate to `./scripts/data_final/`
+for final processed data.
+
+
 In order to stop the containers, run following command:  
 ``docker compose down``
 
