@@ -39,30 +39,8 @@ It should start the pipeline soon, and you should see results of the pipeline fl
 Final preprocessed dataset will be located after successful run in **/Agel/scripts/data_final/** with name:
 **data_processed_YYYY-MM-DD.parquet** with automatically added date info of the processing.
 
-It is also expected to run this DAG on a daily frequency, so for each day will be created new **processed_data** aimed for next steps: e.g. feature selection and training AI models...
+It is also expected to run this DAG on a daily frequency, so for each day will be created new **processed_data** with date **YYYY_MM_DD**, aimed for the next steps: e.g. feature selection and training AI models...
 
-
-Now, try to run Postgres database in docker container for backend database.
-To run postgres container type to your terminal:  
-```docker compose run -it -p 5432:5432 --name postgres postgres ```
-
-Now in the opened terminal type, or edit **airflow.cfg** and set variable named **sql_alchemy_conn** with the constant below:
-``EXPORT AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/airflow_db``  
-``airflow scheduler``
-
-Now open the 2nd terminal and type:  
-``airflow webserver``  
-
-After all this commands airflow should start immediately.
-Airflow webserver by default listens at port **8080**, so open  your web browser and type this URL:  
-``localhost:8080``
-
-After opening URL at the webserver address, the login form will appear:  
-Now for username type: **airflow** and for password **airflow**  
-
-After successful login, Airflow UI webserver will show.   
-There are some DAGs, from which there is also the required DAG called ``AgelETL``.
-You can launch it in order to run the whole pipeline for Agel Assignment.
 
 
 
