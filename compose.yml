@@ -20,6 +20,11 @@ services:
       retries: 30
 
 
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#   README! UNCOMMENT postgres-start-scripts below unless LAUNCHING IT FOR THE FIRST TIME!
+#   IT WILL INITIALIZE AN AIRFLOW DATABASE FOR AIRFLOW SCHEDULER
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 #  postgres-start-scripts:
 #    container_name: postgres_start_script
 #    image: timescale/timescaledb-ha:pg15
@@ -51,26 +56,6 @@ services:
       - "9999:80"
     depends_on:
       - postgres
-#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#   README! UNCOMMENT command below unless LAUNCHING IT FOR THEFIRST TIME!
-#   IT WILL INITIALIZE AN AIRFLOW DATABASE FOR AIRFLOW SCHEDULER
-#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-#    command:
-#      - 'bash'
-#      - '-c'
-#      - |
-#        PGPASSWORD=postgres psql -h postgres -p 5432 -U postgres postgres  <<SQL
-#        DROP DATABASE airflow_db;
-#        DROP OWNED BY airflow;
-#        DROP USER airflow;
-#        CREATE DATABASE airflow_db;
-#        CREATE USER airflow WITH PASSWORD 'airflow';
-#        GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow;
-#        GRANT ALL ON SCHEMA public TO airflow;
-#          ALTER USER airflow SET search_path = public;
-#        SQL
-
 
   airflow_web:
     restart: always

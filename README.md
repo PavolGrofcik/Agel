@@ -40,7 +40,7 @@ It is also expected to run this DAG on a daily frequency, so for each day will b
 *********************************************
 ## b) Docker Compose
 ********************************************
-Firstly, make sure you have installed **Docker**  
+Firstly, make sure you have installed **Docker**  and **Docker compose**
 
 If you would like to run all services in docker containers, run following commands:  
 Also, make sure you are in /Agel directory.  
