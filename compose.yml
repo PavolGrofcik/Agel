@@ -106,5 +106,4 @@ services:
       - dask-scheduler
     volumes:
       - ./dask/notebooks:/notebooks
-
-    command: ["dask worker", "tcp://dask-scheduler:8786", '--memory-limit=2147483648']
+    command: ["dask", "worker", "tcp://dask-scheduler:8786", "--memory-limit=1GB", "--nworkers=2"]

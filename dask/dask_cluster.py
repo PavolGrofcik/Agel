@@ -16,6 +16,7 @@ with client:
  c = lazy_evaluation(a, b)
 
  c.visualize(filename='graph.png', optimize_graph=True)
+
  c = c.compute()
  d = d.compute()
 
