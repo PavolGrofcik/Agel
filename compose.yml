@@ -1,3 +1,7 @@
+
+#Docker compose project name
+name: agel_assignment
+
 services:
 
   postgres:
@@ -85,3 +89,22 @@ services:
       - AIRFLOW__WEBSERVER__SECRET_KEY_SECRET=ddsaf3247
     depends_on:
       - postgres
+
+  dask-scheduler:
+    image: 'ghcr.io/dask/dask'
+    hostname: dask-scheduler
+    ports:
+      - "8786:8786"
+      - "8787:8787"
+    volumes:
+      - ./dask/notebooks:/notebooks
+    command: ["dask-scheduler"]
+
+  dask-worker:
+    image: 'ghcr.io/dask/dask'
+    depends_on:
+      - dask-scheduler
+    volumes:
+      - ./dask/notebooks:/notebooks
+
+    command: ["dask worker", "tcp://dask-scheduler:8786", '--memory-limit=2147483648']
