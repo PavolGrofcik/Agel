@@ -118,4 +118,3 @@ if __name__ == "__main__":
     DataSaver = DataSaver(logger)
     DataSaver.load_dataset(data_dir=DATA_SAVE_PATH, data_name=DATA_PROCESSED_NAME, type=DATA_PROCESSED_FORMAT)
     DataSaver.save_dataset(destination_dir=DATA_SAVE_FINAL_PATH, data_name=DATA_FINAL_NAME, type=DATA_FINAL_FORMAT)
-    x = 5

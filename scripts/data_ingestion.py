@@ -105,6 +105,26 @@ class DaskDataLoader:
             self.createDaskCluster()
 
         self.logger.info("Dask Dataframe is to be loaded")
+
+        #####################################################
+        # Read .CSV file using batches
+        #####################################################
+        df_batch_size = 10000
+        # df_iterator = pd.read_csv(filepath, header=0, chunksize=df_batch_size)
+        #
+        # for index, batch in enumerate(df_iterator):
+        #
+        #     #Process dataframe....
+        #     batch['XXXX'] = batch['YYYY'] + batch['ZZZZ']
+        #
+        #     if index == 0:
+        #         mode = "w"
+        #     else:
+        #         mode = "a"
+        #
+        #     batch.to_csv("df_processed.csv", mode=mode, header=False, index=False)
+        #####################################################
+
         with self.cluster.get_client() as client:
             try:
                 filepath = os.path.expanduser(filepath)
